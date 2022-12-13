@@ -1,11 +1,3 @@
-import Web3 from "web3";
-
-const provider = new Web3.providers.HttpProvider(
-  "https://goerli.infura.io/v3/6583d773ccbc4825b561b4aaca46f660"
-);
-
-const web3 = new Web3(provider);
-
 const abi = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
@@ -45,9 +37,11 @@ const abi = [
   },
 ];
 
-const vmContract = new web3.eth.Contract(
-  abi,
-  "0x5E1074fAef4756CFe4B726E97413B97D0963e84E"
-);
+const VendingMachineContract = (web3) => {
+  return new web3.eth.Contract(
+    abi,
+    "0xF589e0FfCF33Fa91b3366d0761C5b2013D5acaAC"
+  );
+};
 
-export default vmContract;
+export default VendingMachineContract;
