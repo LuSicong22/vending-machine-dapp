@@ -76,13 +76,13 @@ const VendingMachine = () => {
   return (
     <div className={styles.main}>
       <Head>
-        <title>VendingMachine App</title>
+        <title>Vending Machine Dapp</title>
         <meta name="description" content="A blockchain vending machine app" />
       </Head>
       <nav className="navbar mt-4 mb-4">
         <div className="container">
           <div className="navbar-brand">
-            <h1>Vending Machine</h1>
+            <h1>Vending Machine Dapp</h1>
           </div>
           <div className="navbar-end">
             <button
