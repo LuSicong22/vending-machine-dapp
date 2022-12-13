@@ -1,11 +1,27 @@
 import Head from "next/head";
 import "bulma/css/bulma.css";
 import styles from "../styles/VendingMachine.module.css";
+import vmContract from "../blockchain/vending";
 import Web3 from "web3";
+import { useEffect, useState } from "react";
 
 const VendingMachine = () => {
+  const [error, setError] = useState("");
+  const [inventory, setInventory] = useState("");
+
   let web3;
-  //window.ethereum
+
+  useEffect(() => {
+    getInventoryHandler();
+  });
+
+  const getInventoryHandler = async () => {
+    const inventory = await vmContract.methods
+      .getVendingMachineBalance()
+      .call();
+    setInventory(inventory);
+  };
+
   const connectWalletHandler = async () => {
     if (
       typeof window !== "undefined" &&
@@ -15,7 +31,7 @@ const VendingMachine = () => {
         await window.ethereum.request({ method: "eth_requestAccounts" });
         web3 = new Web3(window.ethereum);
       } catch (err) {
-        console.log(err.message);
+        setError(err.message);
       }
     } else {
       // metamask not installed
@@ -46,7 +62,12 @@ const VendingMachine = () => {
       </nav>
       <section>
         <div className="container">
-          <p>placeholder text</p>
+          <h2>Vending machine inventory: {inventory}</h2>
+        </div>
+      </section>
+      <section>
+        <div className="container has-text-danger">
+          <p>{error}</p>
         </div>
       </section>
     </div>
